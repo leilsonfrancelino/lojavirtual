@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	$idPedido = @$_SESSION["LJPEDIDO"];
     $qtdeTotal = $_SESSION["LJQTDE"];	
 	$idCliente = $_SESSION ["LJCLIENTE"]["id_cliente"];
 	if($idCliente) {
@@ -16,6 +17,7 @@
 	}else{
 		$Total = 0;
 	}
+	
 ?>		
 	
 		
@@ -42,28 +44,33 @@
 	<div class="conteudo">
 		<a href="<?php echo URL_BASE ?>" title="logo loja virtual" class="logo"><img src="<?php echo URL_BASE ?>/imagens/logo-topo.png"></a>		
 		
-	
+		
 		<div class="carrinho-topo">
 		<ul>
-			
-				<li><a href="<?php echo URL_BASE ?>carrinho/"><i class="ico-carrinho"></i><?php echo $Total ?> <span>Produtos</span><i class="ico-arrow"></i></a>
-					<ul>
-						<li>
-							<div class="prod-carrinho">
-							 	<figure>
-									<img src="<?php echo URL_BASE ?>/produtos/motog3g.jpg" title="Smartphone Motorola Moto G 3ª Geração Edição Especial Cabernet Dual Chip Desbloqueado Android 5.1 Tela HD 5" rel="Pen Drive Multilaser 32GB USB Preto PD589">
-									<span title="Pen Drive Multilaser 32GB USB Preto PD589" rel="Pen Drive Multilaser 32GB USB Preto PD589">Smartphone Motorola Moto G 3ª Geração Edição...</span>
-									
-								</figure>
-							<a href="<?php echo URL_BASE ?>/carrinho" class='comprar'>Ir para o carrinho</a>	
-							
-							</div>
-						</li>
-					</ul>
-				</li>
+		
+			<li><a href="<?php echo URL_BASE ?>carrinho/"><i class="ico-carrinho"></i><?php echo $Total ?> <span>Produtos</span><i class="ico-arrow"></i></a>
+				<ul>
+					<li>
+						<div class="prod-carrinho">
+						<?php              
+							$lst_carrinho = consultar("carrinho c, produto p "," c.id_produto = p.id_produto and  id_pedido = $idPedido ");										
+							foreach ($lst_carrinho as $carrinho){   						
+						?>
+							<figure>
+								<img src="<?php echo URL_BASE ?>/produtos/<?php echo  $carrinho["imagem"] ?>" title="Smartphone Motorola Moto G 3ª Geração Edição Especial Cabernet Dual Chip Desbloqueado Android 5.1 Tela HD 5" rel="Pen Drive Multilaser 32GB USB Preto PD589">
+								<span title="Pen Drive Multilaser 32GB USB Preto PD589" rel="Pen Drive Multilaser 32GB USB Preto PD589"><?php echo  $carrinho["produto"] ?></span>
+								
+							</figure>
+						<?php } ?>
+						<a href="<?php echo URL_BASE ?>carrinho" class='comprar'>Ir para o carrinho</a>	
+						
+						</div>
+					</li>
+				</ul>
+			</li>
 		</ul>
 		</div>
-		
+			
 		
 		<div class="cx-busca">
 			<form action="<?php echo URL_BASE ?>lista-cursos" method="post">

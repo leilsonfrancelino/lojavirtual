@@ -60,7 +60,7 @@
 					    <h3>R$ <?php echo $lst_produto["preco"]?></h3>
 															
 					<div class="cx-botoes">
-						<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>/carrinho">
+						<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
 							<input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $lst_produto["preco"]?>" />
 							<input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
 							<input type="hidden" 		name="id_produto" value = "<?php echo $lst_produto["id_produto"]?>"/>

@@ -4,6 +4,7 @@
 	require("include/config.php");
 	require("include/crud.php");
 	require("include/biblio.php");
+	
 ?>
 <html>
 <head>

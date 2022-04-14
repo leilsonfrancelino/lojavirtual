@@ -44,7 +44,7 @@
         echo "<script languague='javaScript'> window.location='$url'</script>";
         
     }
-    
+     
 
 ?>
 <div class="conteudo margin-topo">
@@ -97,61 +97,65 @@
 <div class="base-carrinho lista-carrinho">
 			<p>&nbsp;</p>
 
-<div class="caixa-carrinho lista">			
-<form action="index.php?link=8" method="post">
-
-<div class="caixa-carrinho">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<thead>
-	  <tr>
-		<th width="10%" align="center">Pedido</th>
-		<th width="40%" align="center">Produto</th>
-		<th width="10%" align="center">Quantidade</th>
-		<th width="18%" align="center">Valor unitario</th>
-		<th width="18%" align="center">Total da compra</th>
-	  </tr>
-	  </thead>
-	  <tbody>
-              <?php
-			  
-              
-				$lst_mcompras = selecionar ("SELECT i.id_itens, i.id_venda,i.id_produto,i.valor_item,i.qtde_item,i.subtotal,p.produto,p.imagem
-											FROM itens i, venda v, cliente c, produto p
-											WHERE i.id_venda = v.id_venda
-											AND v.id_cliente = c.id_cliente
-											AND i.id_produto = p.id_produto
-											AND c.id_cliente = $idCliente");
+<div class="caixa-carrinho lista">	
+              <?php              
+				$lst_mcompras = selecionar ("SELECT * FROM venda WHERE id_cliente = $idCliente");
 											
-                foreach ($lst_mcompras as $mcompra){
-                                     
-                    
+                foreach ($lst_mcompras as $mcompra){      
+					$idVenda = $mcompra["id_venda"];
                 ?>
-	 	  <tr>
-			<td align="center"><h3><?php echo  $mcompra["id_venda"] ?></h3></td>
-			<td><img src="<?php echo URL_BASE ?>produtos/<?php echo $mcompra["imagem"] ?>" title="<?php echo $mcompra["produto"] ?>" rel="<?php echo $mcompra["produto"] ?>"><?php echo $mcompra["produto"] ?></td>
-			<td align="center"><h3><?php echo  $mcompra["qtde_item"] ?></h3></td>
-			<td align="center"><h3>R$ <?php echo $mcompra["valor_item"] ?></h3></td>
-			<td align="center"><h3>R$ <?php echo $mcompra["subtotal"] ?></h3></td>		
-		</tr>
-	  	<?php }?> 
-	  	
-	</tbody>
-</table>
- 
-
- 
-</form>	
-</div>
+				
+				<div class="pedidos">			
+					<p>Pedido:<p>			
+						<div class="meus-pedidos">				
+							<span><?php echo  $mcompra["id_venda"] ?></span>						
+						</div>				
+					<p>Data da compra:<p>
+						<div class="meus-pedidos">					
+							<span><?php echo  $mcompra["data_venda"] ?></span>					
+						</div>
+					<p>Forma de pagamento:<p>
+						<div class="meus-pedidos">					
+							<span><?php echo  $mcompra["forma_pagamento"] ?></span>
+						</div>
+				</div>					
+			
 		
 
+		<div class="caixa-carrinho lista">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">			
+				<thead>
+				  <tr>
+					<th width="50%" align="center">Produto</th>
+					<th width="14%" align="center">Quantidade</th>
+					<th width="18%" align="center">Valor unitario</th>
+					<th width="18%" align="center">Valor total</th>
+				  </tr>
+				</thead>
+				<tbody>
+				<?php              
+						$lst_mcomprasitens = selecionar ("SELECT i.*, p.* FROM itens i, produto p WHERE i.id_produto = p.id_produto and id_venda = $idVenda");											
+						foreach ($lst_mcomprasitens as $mcompraitens){                      
+					 ?>
+						<tr>
+							<td><img src="<?php echo URL_BASE ?>produtos/<?php echo $mcompraitens["imagem"] ?>" title="<?php echo $mcompraitens["produto"] ?>" rel="<?php echo $mcompraitens["produto"] ?>"><?php echo $mcompraitens["produto"] ?></td>							
+							<td align="center"><h3>R$ <?php echo $mcompraitens["qtde_item"] ?></h3></td>
+							<td align="center"><h3>R$ <?php echo $mcompraitens["valor_item"] ?></h3></td>
+							<td align="center">R$ <?php echo $mcompraitens["subtotal"]?></h3></td>
+						</tr>
+					<?php }?> 
+				
+				</tbody>	  	
+		
+			</table>
+		</div>
+	
+<?php  }?>	
 	</div>
+		
 	</div>
 </div>
 
-        
-   
-	
-	
 		
 </div>
 
