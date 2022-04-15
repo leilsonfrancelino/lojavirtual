@@ -1641,6 +1641,21 @@ margin-top:50px;
   border-bottom:solid 1px #ddd;
   padding:20px 10px;
 }
+.meus-pedidos span{
+  height: 30px;
+  width: 30px;  
+  margin: 0 10px;  
+}
+.pedidos{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #ddd;
+  background: #e1e1e1;
+  padding-top: 15px;
+  padding-bottom: 15px; 
+}
 .caixa-carrinho img {
   width:20%;
   float:left;
