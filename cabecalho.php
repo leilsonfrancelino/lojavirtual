@@ -1,5 +1,7 @@
 <?php
+	if(!isset($_SESSION)){
 	session_start();
+	}
 	$idPedido = @$_SESSION["LJPEDIDO"];
     $qtdeTotal = $_SESSION["LJQTDE"];	
 	$idCliente = $_SESSION ["LJCLIENTE"]["id_cliente"];
@@ -20,8 +22,6 @@
 	
 ?>		
 	
-		
-
 <div class="mn-topo">
 	<div class="conteudo">
 		<div class="contato-topo">
@@ -52,18 +52,26 @@
 				<ul>
 					<li>
 						<div class="prod-carrinho">
-						<?php              
-							$lst_carrinho = consultar("carrinho c, produto p "," c.id_produto = p.id_produto and  id_pedido = $idPedido ");										
-							foreach ($lst_carrinho as $carrinho){   						
+						<?php 
+							if(!$qtdeTotal) {
+									
+							}else{
+								$lst_carrinho = consultar("carrinho c, produto p "," c.id_produto = p.id_produto and  id_pedido = $idPedido");									
+								foreach ($lst_carrinho as $carrinho){						   						
 						?>
 							<figure>
-								<img src="<?php echo URL_BASE ?>/produtos/<?php echo  $carrinho["imagem"] ?>" title="Smartphone Motorola Moto G 3ª Geração Edição Especial Cabernet Dual Chip Desbloqueado Android 5.1 Tela HD 5" rel="Pen Drive Multilaser 32GB USB Preto PD589">
-								<span title="Pen Drive Multilaser 32GB USB Preto PD589" rel="Pen Drive Multilaser 32GB USB Preto PD589"><?php echo  $carrinho["produto"] ?></span>
-								
+								<img src="<?php echo URL_BASE ?>/produtos/<?php echo  $carrinho["imagem"] ?>">
+								<span title="<?php echo  $carrinho["produto"] ?>" rel="<?php echo  $carrinho["produto"] ?>"><?php echo  $carrinho["produto"] ?></span>								
 							</figure>
-						<?php } ?>
-						<a href="<?php echo URL_BASE ?>carrinho" class='comprar'>Ir para o carrinho</a>	
-						
+							<?php } } ?>
+							<?php 
+							if($qtdeTotal) {
+								?>
+								<a href="<?php echo URL_BASE ?>carrinho" class='comprar'>Ir para o carrinho</a>	
+							<?php }else{ 
+									echo "";
+							}
+							?>					
 						</div>
 					</li>
 				</ul>

@@ -139,7 +139,7 @@
 					 ?>
 						<tr>
 							<td><img src="<?php echo URL_BASE ?>produtos/<?php echo $mcompraitens["imagem"] ?>" title="<?php echo $mcompraitens["produto"] ?>" rel="<?php echo $mcompraitens["produto"] ?>"><?php echo $mcompraitens["produto"] ?></td>							
-							<td align="center"><h3>R$ <?php echo $mcompraitens["qtde_item"] ?></h3></td>
+							<td align="center"><h3><?php echo $mcompraitens["qtde_item"] ?></h3></td>
 							<td align="center"><h3>R$ <?php echo $mcompraitens["valor_item"] ?></h3></td>
 							<td align="center">R$ <?php echo $mcompraitens["subtotal"]?></h3></td>
 						</tr>

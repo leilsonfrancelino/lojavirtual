@@ -1,5 +1,7 @@
 <?php 
-	session_start();	
+	if(!isset($_SESSION)){
+session_start();
+}	
 	//unset($_SESSION["LJCLIENTE"]);
 	require("include/config.php");
 	require("include/crud.php");
@@ -7,9 +9,9 @@
 	if($_GET["venda"]=="s")
 		$url_sucesso = URL_BASE ."pagamento";
 	else
-		$url_sucesso = URL_BASE ."cadastro";
+		$url_sucesso = URL_BASE ."index";
 	
-	$url_erro = URL_BASE ."nao-logado";
+	$url_erro = URL_BASE ."cadastro";
 	
 
 	$nome = strip_tags((filter_input(INPUT_POST, "txt_cliente")));
@@ -33,25 +35,25 @@
 			"data_cadastro"     => $data
 	);
 	
-	if(($nome) && ($email)) {
-		$cliente = consultar("cliente", "email = '$email'");
-
-		if(!$cliente)
-			$ok = inserir("cliente", $dados);
-		else
-			$ok = alterar("cliente", $dados, "email = '$email'");
+if(($nome!="") && ($email!="")) {				
+			$cliente = selecionar ("SELECT * FROM cliente WHERE email = '$email'");	
+			
+			if($cliente) {				
+				print "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=$url_erro'>
+		               <script type = 'text/javascript'> alert ('Email já existe') </script>";
+			}else{
+				inserir("cliente", $dados);
+				$cliente = consultar("cliente", "email = '$email'");
+				foreach ($cliente as $c)
+					$_SESSION["LJCLIENTE"] = $c;
+						print "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=$url_sucesso'>
+								<script type = 'text/javascript'> alert ('Operação realizada com sucesso') </script>";
+			}
 		
-		$cliente = consultar("cliente", "email = '$email'");
-		foreach ($cliente as $c)
-			$_SESSION["LJCLIENTE"] = $c;
-	}
-	
-	if($ok) {
-		print "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=$url_sucesso'>
-		      <script type = 'text/javascript'> alert ('Operação realizada com sucesso') </script>";
 	}else{
 		print "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=$url_erro'>
-		      <script type = 'text/javascript'> alert ('Não foi possível realizar a operação') </script>";
+		               <script type = 'text/javascript'> alert ('Nome e usuário são obrigatórios') </script>";
+			
 	}
 	
 	
