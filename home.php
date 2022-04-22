@@ -5,7 +5,7 @@
 	<div class="container">
 		<!-- row -->
 		<div class="row">
-			<h1>Destaques</h1>
+			<h1>Novidades</h1>
 			
 			<?php
 				$lst_destaques = consultar("produto","destaque = 'S' and ativo_produto = 'S' order by rand() limit 3");
@@ -15,17 +15,18 @@
 				<div class="col-md-4 col-xs-6">	
 					<div class="shop" style="widght: 345px; height: 240px;"><a href="<?php echo URL_BASE ?>/produto/?p=2"><img src="<?php echo URL_BASE ?>/produtos/<?php echo $lst_destaque["imagem"]?>" title="<?php echo $lst_destaque["produto"]?>"></a>
 					
-						
 						<div class="shop-body">
 							<h3 style="font-size: 18px;" href="<?php echo URL_BASE ?>/produto/?p=<?php echo $lst_destaque["id_produto"]?>"><?php echo limita_caracteres($lst_destaque["produto"],20)?></h3>
 							
 							<h4>R$ <?php echo $lst_destaque["preco"]?></h4>
 							
 							<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>/carrinho">
+								
 								<input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $lst_destaque["preco"]?>" />
 								<input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
 								<input type="hidden" 		name="id_produto" value = "<?php echo $lst_destaque["id_produto"]?>"/>
 								<input type="submit" 		name="imageField" class="btn btn-default" value="Adicionar"  />
+								
 							</form>		
 							
 						</div>
