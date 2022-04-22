@@ -2,7 +2,10 @@
 
 <!-- Function validate login -->
 <?php
+	if(!isset($_SESSION)){
 	session_start();
+	}
+	$idPedido = @$_SESSION["LJPEDIDO"];
     $qtdeTotal = $_SESSION["LJQTDE"];	
 	$idCliente = $_SESSION ["LJCLIENTE"]["id_cliente"];
 	if($idCliente) {
@@ -12,41 +15,83 @@
 	}else{
 		$txtLogin = "Login";
 		$urlLogin = URL_BASE. "nao-logado";
-		$nomeCliente = "Olá Visitante";
+		$nomeCliente = "Visitante";
 	}
 	if($qtdeTotal) {
 		$Total = $qtdeTotal;
 	}else{
 		$Total = 0;
 	}
-?>		
+	
+?>	
 	
 
 
 
 <header>
-	<!-- TOP HEADER -->
-	<div id="top-header">
-		<div class="container">
-			<ul class="header-links pull-left">
-				<li><a href="<?php echo "#"?>">HOME </a></li> 
-				<li><a href="<?php echo "meus-dados"?>">Meus dados </a></li>					
-				<li><a href="<?php echo "cadastro"?>"> Cadastrar	</a></li>						
-				
-				<?php echo "<li><a href=$urlLogin>$txtLogin</a></li> "; ?>
-				
-			</ul>
-			<ul class="header-links pull-right">
-			
-				<li><a href="<?php echo "cadastro"?>" title="usuario" class="usuario"><p><i class="fa fa-user-o"></i><?php echo $nomeCliente ?> </p></a></li>
-			
-			</ul>
-		</div>
-	</div>
-	<!-- /TOP HEADER -->
 
 	<!-- MAIN HEADER -->
 	<div id="header">
+		<!-- TOP HEADER -->
+		<nav class="navbar navbar-default navbar-inverse" role="navigation">
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="<?php echo "#"?>">HOME </a></li> 
+					<li><a href="<?php echo "meus-dados"?>">Meus dados </a></li>					
+					<!-- <li><a href="<?php echo "cadastro"?>"> Cadastrar	</a></li>						 -->
+					
+					<?php echo "<li><a href=$urlLogin>$txtLogin</a></li> "; ?>
+					
+				</ul>
+				<!-- <ul class="header-links pull-right">
+				
+					<li><a href="<?php echo "cadastro"?>" title="usuario" class="usuario"><p><i class="fa fa-user-o"></i><?php echo $nomeCliente ?> </p></a></li>
+				
+				</ul> -->
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><i class="fa fa-user-o"></i>  <?php echo $nomeCliente ?> </b> <span class="caret"></span></a>
+						<ul id="login-dp" class="dropdown-menu">
+							<li>
+								<div class="row">
+										<div class="col-md-12">
+	
+											<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+													<div class="form-group">
+														<label class="sr-only" for="exampleInputEmail2">Email</label>
+														<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+													</div>
+													<div class="form-group">
+														<label class="sr-only" for="exampleInputPassword2">Senha</label>
+														<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+														<div class="help-block text-right"><a href="">Esqueci a senha</a></div>
+													</div>
+													<div class="form-group">
+														<button type="submit" class="btn btn-primary btn-block">Entrar</button>
+													</div>
+													<!-- <div class="checkbox">
+														<label>
+														<input type="checkbox"> keep me logged-in
+														</label>
+													</div> -->
+											</form>
+											
+										</div>
+										<div class="bottom text-center">
+										<a href="<?php echo "cadastro"?>"><b>Cadastre-se Aqui</b></a>
+										</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+		</nav>
+		<!-- /TOP HEADER -->
+
+
 		<!-- container -->
 		<div class="container">
 			<!-- row -->
@@ -79,13 +124,13 @@
 					<div class="header-ctn">
 
 						<!-- Wishlist -->
-						<div>
+						<!-- <div>
 							<a href="#">
 								<i class="fa fa-heart-o"></i>
 								<span>Favoritos</span>
 								<div class="qty">23</div>
 							</a>
-						</div>
+						</div> -->
 						<!-- /Wishlist -->
 
 						<!-- Cart -->
@@ -97,18 +142,34 @@
 							</a>
 							<div class="cart-dropdown">
 								<div class="cart-list">
+									<?php 
+										if(!$qtdeTotal) {
+												
+										}else{
+											$lst_carrinho = consultar("carrinho c, produto p "," c.id_produto = p.id_produto and  id_pedido = $idPedido");									
+											foreach ($lst_carrinho as $carrinho){						   						
+									?>
+								
 									<div class="product-widget">
+										
 										<div class="product-img">
-											<img src="./img/product01.png" alt="">
+											<img src="<?php echo URL_BASE ?>/produtos/<?php echo  $carrinho["imagem"] ?>">
 										</div>
 										<div class="product-body">
-											<h3 class="product-name"><a href="#">product name goes here</a></h3>
-											<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+											<h3 class="product-name"><a href="#"><?php echo limita_caracteres($carrinho["produto"], 40) ?></a></h3>
+											<h4 class="product-price"><span class="qty">R$ <?php echo  $carrinho["preco"] ?></h4>
 										</div>
-										<button class="delete"><i class="fa fa-close"></i></button>
+	
+											
+											
+										
+
+										<a href="<?php echo URL_BASE. "carrinho/?p=$carrinho[id_produto]"?>" class="delete"><i class="fa fa-close"></i></a>
 									</div>
 
-									<div class="product-widget">
+
+
+									<!-- <div class="product-widget">
 										<div class="product-img">
 											<img src="./img/product02.png" alt="">
 										</div>
@@ -117,16 +178,24 @@
 											<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
 										</div>
 										<button class="delete"><i class="fa fa-close"></i></button>
-									</div>
+									</div> -->
+								
+									<?php } } ?>
 								</div>
-								<div class="cart-summary">
-									<small>3 Item(s) selected</small>
-									<h5>SUBTOTAL: $2940.00</h5>
-								</div>
+
+									
 								<div class="cart-btns">
-									<a href="#">View Cart</a>
+									<?php 
+											if($qtdeTotal) {
+												?>
+												<a href="<?php echo URL_BASE ?>carrinho" class='comprar'>Carrinho</a>	
+											<?php }else{ 
+													echo "";
+											}
+									?>	
 									<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 								</div>
+
 							</div>
 						</div>
 						<!-- /Cart -->
@@ -139,7 +208,7 @@
 							</a>
 						</div>
 						<!-- /Menu Toogle -->
-						
+
 					</div>
 				</div>
 				<!-- /ACCOUNT -->
