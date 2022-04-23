@@ -46,7 +46,7 @@
 				<h2><a href="<?php echo URL_BASE ?>/produto/?p=<?php echo $lst_destaque["id_produto"]?>"><?php echo limita_caracteres($lst_destaque["produto"],40)?></a></h2>
 				<div class="prc-ant">De <small>R$ <?php echo $lst_destaque["preco_alto"]?></small><font> Por</font></div>
 				<span>R$ <?php echo $lst_destaque["preco"]?></span>
-				<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
+				<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>/carrinho">
 					<input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $lst_destaque["preco"]?>" />
 					<input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
 					<input type="hidden" 		name="id_produto" value = "<?php echo $lst_destaque["id_produto"]?>"/>

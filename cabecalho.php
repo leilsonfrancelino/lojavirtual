@@ -1,7 +1,5 @@
 <?php
-	if(!isset($_SESSION)){
 	session_start();
-	}
 	$idPedido = @$_SESSION["LJPEDIDO"];
     $qtdeTotal = $_SESSION["LJQTDE"];	
 	$idCliente = $_SESSION ["LJCLIENTE"]["id_cliente"];
@@ -19,9 +17,10 @@
 	}else{
 		$Total = 0;
 	}
-	
 ?>		
 	
+		
+
 <div class="mn-topo">
 	<div class="conteudo">
 		<div class="contato-topo">
@@ -44,41 +43,34 @@
 	<div class="conteudo">
 		<a href="<?php echo URL_BASE ?>" title="logo loja virtual" class="logo"><img src="<?php echo URL_BASE ?>/imagens/logo-topo.png"></a>		
 		
-		
+	
 		<div class="carrinho-topo">
 		<ul>
-		
-			<li><a href="<?php echo URL_BASE ?>carrinho/"><i class="ico-carrinho"></i><?php echo $Total ?> <span>Produtos</span><i class="ico-arrow"></i></a>
-				<ul>
-					<li>
-						<div class="prod-carrinho">
-						<?php 
-							if(!$qtdeTotal) {
-									
-							}else{
-								$lst_carrinho = consultar("carrinho c, produto p "," c.id_produto = p.id_produto and  id_pedido = $idPedido");									
-								foreach ($lst_carrinho as $carrinho){						   						
-						?>
-							<figure>
-								<img src="<?php echo URL_BASE ?>/produtos/<?php echo  $carrinho["imagem"] ?>">
-								<span title="<?php echo  $carrinho["produto"] ?>" rel="<?php echo  $carrinho["produto"] ?>"><?php echo  $carrinho["produto"] ?></span>								
-							</figure>
-							<?php } } ?>
-							<?php 
-							if($qtdeTotal) {
-								?>
-								<a href="<?php echo URL_BASE ?>carrinho" class='comprar'>Ir para o carrinho</a>	
-							<?php }else{ 
-									echo "";
-							}
-							?>					
-						</div>
-					</li>
-				</ul>
-			</li>
+			
+				<li><a href="<?php echo URL_BASE ?>carrinho/"><i class="ico-carrinho"></i><?php echo $Total ?> <span>Produtos</span><i class="ico-arrow"></i></a>
+					<ul>
+						<li>
+							<div class="prod-carrinho">
+							<?php
+								if(!$idPedido) {
+									echo "<h3><center>O carrinho esta vazio</center></h3>";	
+								}else{
+									$lst_carrinho = consultar("carrinho c, produto p "," c.id_produto = p.id_produto and  id_pedido = $idPedido");									
+									foreach ($lst_carrinho as $carrinho){						   						
+							?>
+							 	<figure>
+									<img src="<?php echo URL_BASE ?>produtos/<?php echo $carrinho["imagem"] ?>" title="<?php echo $carrinho["produto"] ?>" rel="<?php echo limita_caracteres($carrinho["produto"],40) ?>"><?php echo limita_caracteres($carrinho["produto"],40) ?>
+								</figure>
+								<?php } }?>
+							<a href="<?php echo URL_BASE ?>/carrinho" class='comprar'>Ir para o carrinho</a>	
+							
+							</div>
+						</li>
+					</ul>
+				</li>
 		</ul>
 		</div>
-			
+		
 		
 		<div class="cx-busca">
 			<form action="<?php echo URL_BASE ?>lista-cursos" method="post">

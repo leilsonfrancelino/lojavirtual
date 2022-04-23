@@ -167,10 +167,10 @@
 			
 				<div class="caixa-prod-home quatro-colunas">
 				<div class="cx-img">
-						<a href="<?php echo URL_BASE ?>produto/?p=<?php echo $recomendado["id_produto"] ?>"><img src="<?php echo URL_BASE ?>produtos/<?php echo $recomendado["imagem"] ?>"></a>
+						<a href="<?php echo URL_BASE ?>produto/?p=<?php echo $recomendado["id_produto"] ?>"><img src="<?php echo URL_BASE ?>produtos/<?php echo $recomendado["imagem"] ?>"title="<?php echo $recomendado["produto"]?>"></a>
 				</div>
 				<div class="limpar"></div>		
-					<h2><a href="<?php echo URL_BASE ?>produto/?p=<?php echo $recomendado["id_produto"] ?>"><?php echo $recomendado["produto"] ?></a></h2>
+					<h2><a href="<?php echo URL_BASE ?>produto/?p=<?php echo $recomendado["id_produto"] ?>"><?php echo limita_caracteres($recomendado["produto"],40) ?></a></h2>
 						<div class="prc-ant">De <small>R$ <?php echo $recomendado["preco_alto"] ?></small>&nbsp; Por</div>
 							<h3>R$ <?php echo $recomendado["preco"] ?></h3>
 										

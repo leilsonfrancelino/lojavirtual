@@ -12,6 +12,7 @@ input, select, textarea{box-sizing:border-box;}
 	background:#F8F8F8;
 	height:40px;
 	border-bottom:2px solid #666;
+	display: grid;
 }
 .mn-topo h1{
   float: left;
@@ -24,6 +25,7 @@ input, select, textarea{box-sizing:border-box;}
 	width:960px;
 	margin:0 auto;
 	display:block;
+	float: left;
 }
 .limpar{clear:both;}
 .but-sair{
@@ -58,6 +60,7 @@ input, select, textarea{box-sizing:border-box;}
 	width:100%;
 	background:#660066;
 	float:left;
+	display: flex;
 }
 .base-topo .bemvindo{
 	margin-top:20px;
@@ -309,7 +312,7 @@ padding-right:3px;
 	margin-left:5px;
 	margin-top:20px;
 	min-height:600px;
-
+	display: grid;
 }
 
 .base-direita h1{

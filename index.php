@@ -16,6 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script type="text/javascript" src="<?php echo URL_BASE?>js/jquery-1.11.2.min.js"></script>
+
 <!--menu mobile-->  
 <script>
 	$(function(){

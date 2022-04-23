@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <title>Projeto Integrador</title>
-<link href="<?php echo URL_BASE?>css/estiloAbas.css" rel="stylesheet" type="text/css">
+
 <link href="<?php echo URL_BASE?>css/reset.css" rel="stylesheet" type="text/css">
 <link href="<?php echo URL_BASE?>css/estilo.css" rel="stylesheet" type="text/css">
 <link href="<?php echo URL_BASE?>css/estilo-m.css" rel="stylesheet" type="text/css">
@@ -16,45 +16,28 @@
 
 <script type="text/javascript" src="<?php echo URL_BASE?>js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="<?php echo URL_BASE?>js/jquery-1.11.2.min.js"></script>
+
 <style>
-body {font-family: Arial;}
+ul{list-style:none; padding-left:10px;}
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
+.abas li{float:left; border:1px solid #ccc; border-bottom:0; margin-right:10px; padding:10px; border-top-left-radius:5px; border-top-right-radius:5px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px; -webkit-border-radius-topleft:5px; -webkit-border-radius-topright:5px; }
 
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
+.abas li:hover{box-shadow:0 -2px 3px #DFDFDF; -moz-box-shadow:0 -2px 3px #DFDFDF; -webkit-box-shadow:0 -2px 3px #DFDFDF; font-weight:bold; border-color:#c0c0c0;}
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
+.ativo{background-color:#ccc; border-color:#333;}
 
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
+.ativo a{color:#fff; font-weight:bold; text-shadow:0 0 5px #999;}
 
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
+.abas li a {color:#333; }
+
+#noticia{position:relative; width:auto; height:auto; padding:10px; clear:both; border:1px solid #ccc; -moz-box-shadow:0 -1px 3px #ccc;}
+
+#noticia div{display:none;}
+
+.credito{font-size:1.1em; position:absolute; right:0; bottom:-40px; margin-top:15px;}
+
+.credito a{font-size:1.1em;}
+
 </style>
 <!--menu mobile-->  
 <script>
@@ -68,19 +51,30 @@ body {font-family: Arial;}
 </script>
 
 <script>
-function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
+$(function(){
+    $('#conteudo').hide();
+    var noticia;    
+    var hash = window.location.hash;
+    if (hash !='')
+    {
+        noticia = $(hash).html();
+        $('.abas li a[href="' + hash + '"]').parent().addClass('ativo');        
+    } else {
+        noticia = $('#conteudo div:first-child').html();            
+        $('.abas li:first-child').addClass('ativo');        
+    }
+    $('#noticia').append('<div>' + noticia + '</div>').find('div').slideDown();
+    $('.abas li a').click(function(){
+        $('.abas li').removeClass('ativo');
+        $(this).parent().addClass('ativo');
+        var ancora = $(this).attr('href');
+        var nome = ancora.substr(1, ancora.length);
+        noticia = $('#conteudo div[id="' + nome + '"]').html();
+        $('#noticia').empty();
+        $('#noticia').append('<div>' + noticia + '</div>').find('div').slideDown();
+    return false();
+    })
+})
 </script>
 </head>
 
@@ -118,20 +112,25 @@ function openCity(evt, cityName) {
 					<input type="submit" 		name="imageField" class="carrinho" value="Adicionar ao carrinho"  />
 				</form>
 			</div>
-		</div>		
-		
-	<div class="tab">
-		  <button class="tablinks" onclick="openCity(event, 'London')">Descrição</button>
-		  <button class="tablinks" onclick="openCity(event, 'Paris')">Detalhes</button>  
+		</div>	
+
+
+<ul class="abas" >
+    <li><a href="#descricao" >Descrição</a></li>
+    <li><a href="#detalhes">Detalhes</a></li>    
+</ul>
+
+<div id="noticia"></div>
+
+<div id="conteudo" >
+	<div id="descricao" >    
+		<p><?php echo $produto[0]["descricao"] ?></p>
 	</div>
 
-		<div id="London" class="tabcontent">
-		   <p><?php echo $produto[0]["descricao"] ?></p>
-		</div>
-
-		<div id="Paris" class="tabcontent">
-		  <p><?php echo $produto[0]["detalhes"] ?></p> 
-		</div>
+	<div id="detalhes">    
+		<p><?php echo $produto[0]["detalhes"] ?></p>
+	</div>
+</div>		
 		
 		<!--Recomendados para você-->	
 		<div class="recomendamos">

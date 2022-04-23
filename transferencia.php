@@ -26,6 +26,7 @@
 	deletar("carrinho", "id_pedido = $idPedido");
 	deletar("pedido", "id_pedido = $idPedido");
 	unset($_SESSION["LJPEDIDO"]);
+	unset($_SESSION["LJQTDE"]);
 	$idPedido = null;
 	
 	echo "<script type='text/javaScript'> location.href='".URL_BASE."compra-finalizada/?v=$idVenda'</script>";

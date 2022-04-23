@@ -19,6 +19,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script type="text/javascript" src="<?php echo URL_BASE?>js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="<?php echo URL_BASE?>js/frete.js"></script>
+<style>
+ul{list-style:none; padding-left:10px;}
+
+.abas li{float:left; border:1px solid #ccc; border-bottom:0; margin-right:10px; padding:10px; border-top-left-radius:5px; border-top-right-radius:5px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:5px; -webkit-border-radius-topleft:5px; -webkit-border-radius-topright:5px; }
+
+.abas li:hover{box-shadow:0 -2px 3px #DFDFDF; -moz-box-shadow:0 -2px 3px #DFDFDF; -webkit-box-shadow:0 -2px 3px #DFDFDF; font-weight:bold; border-color:#c0c0c0;}
+
+.ativo{background:#ccc; border-color:#333;}
+
+.ativo a{color:#fff; font-weight:bold; text-shadow:0 0 5px #999;}
+
+.abas li a {color:#333; }
+
+#noticia{position:relative; width:auto; height:auto; padding:10px; clear:both; border:1px solid #ccc; -moz-box-shadow:0 -1px 3px #ccc;}
+
+#noticia div{display:none;}
+
+.credito{font-size:1.1em; position:absolute; right:0; bottom:-40px; margin-top:15px;}
+
+.credito a{font-size:1.1em;}
+
+</style>
 <!--menu mobile-->  
 <script>
 	$(function(){
@@ -28,6 +51,32 @@
 			return false;
 		});
 	});
+</script>
+<script>
+$(function(){
+    $('#conteudo').hide();
+    var noticia;    
+    var hash = window.location.hash;
+    if (hash !='')
+    {
+        noticia = $(hash).html();
+        $('.abas li a[href="' + hash + '"]').parent().addClass('ativo');        
+    } else {
+        noticia = $('#conteudo div:first-child').html();            
+        $('.abas li:first-child').addClass('ativo');        
+    }
+    $('#noticia').append('<div>' + noticia + '</div>').find('div').slideDown();
+    $('.abas li a').click(function(){
+        $('.abas li').removeClass('ativo');
+        $(this).parent().addClass('ativo');
+        var ancora = $(this).attr('href');
+        var nome = ancora.substr(1, ancora.length);
+        noticia = $('#conteudo div[id="' + nome + '"]').html();
+        $('#noticia').empty();
+        $('#noticia').append('<div>' + noticia + '</div>').find('div').slideDown();
+    return false();
+    })
+})
 </script>
 
 
@@ -151,66 +200,66 @@ if(@$idPedido !=""){
 	
 </form>	
 </div>
-		
-<div class="forma-pagamento lista">
-<title class="migalha">Formas de pagamento</title>
-<div id="caixa">
-			<p id="abas">
-				<a href="#aba1" class="selected">Transferência/Depósito</a>
-				<a href="#aba2">Pagseguro</a>
-								
-			</p>
 
-			<ul id="conteudos" class="descricao">	
-                            
-                            <li id="aba1">
-					<strong>DEPÓSITO BANCÁRIO</strong>
-					<small>Escolha uma das nossas contas abaixo para realizar o deposito.</small>
-					<div class="contas">
-						<figure>
-							<img src="imagens/img-bb.png">
-							<strong>BANCO DO BRASIL</strong> 
-							<span>Agência: 1613-6 </span> 
-							<span>Conta: 13644-1 </span> 
-							<span>Manoel Jailton S. do Nascimento<</span>
-						</figure>
-						<figure>
-							<img src="imagens/img-bi.png">
-							<strong>BANCO ITAÚ  </strong> 
-							<span>Agência: 7861 </span> 
-							<span>Conta: 05159-2 </span>  
-							<span>Intelimax Comércio LTDA</span> 
-						</figure>
-						<figure>
-							<img src="imagens/img-bc.png">
-							<strong>CAIXA ECONÔMICA </strong>
-							<span>Operação: 013 </span> 
-							<span>Agência: 1649</span> 
-							<span>Poupança: 46136-2 </span>  
-							<span>Manoel Jailton S. do Nascimento</span>  
-						</figure>
-						<figure>
-							<img src="imagens/img-bbd.png">
-							<strong>BANCO BRADESCO </strong>
-							<span>Agência: 1801-5 </span> 
-							<span>Conta: 4189-0 </span> 
-							<span>Jairo S. do Nascimento</span>
-						</figure>
-					</div>
-					<a href="<?php echo URL_BASE ."transferencia" ?>" class="paypal">Finalizar Pedido</a>
-				</li>
-				<li id="aba2">
-					<strong>COMPRAR PELO PAGSEGURO</strong>
-					<small>Ao clicar no botão abaixo você será redirecionado ao site do pagseguro para realizar o pagamento.</small>
-					<a href="<?php echo URL_BASE."pagseguro.php?idCli=$idCliente&idPed=$idPedido" ?>" class="paypal">Finalizar compra pelo PAGSEGURO</a>
-					<div class="bandeiras"></div>
-				</li>
-				
-				
-				
-			</ul>
+
+<div class="forma-pagamento lista">
+	<title class="migalha">Formas de pagamento</title>
+	<div id="caixa">
+		<ul class="abas" >
+			<li><a href="#descricao" >Transferência/Depósito</a></li>
+			<li><a href="#detalhes">Pagseguro</a></li>    
+		</ul>
+
+		<div id="noticia"></div>
+
+		<div id="conteudo" >
+			<div id="descricao" >    
+				<strong>DEPÓSITO BANCÁRIO</strong>
+							<small>Escolha uma das nossas contas abaixo para realizar o deposito.</small>
+							<div class="contas">
+								<figure>
+									<img src="imagens/img-bb.png">
+									<strong>BANCO DO BRASIL</strong> 
+									<span>Agência: 1613-6 </span> 
+									<span>Conta: 13644-1 </span> 
+									<span>Manoel Jailton S. do Nascimento<</span>
+								</figure>
+								<figure>
+									<img src="imagens/img-bi.png">
+									<strong>BANCO ITAÚ  </strong> 
+									<span>Agência: 7861 </span> 
+									<span>Conta: 05159-2 </span>  
+									<span>Intelimax Comércio LTDA</span> 
+								</figure>
+								<figure>
+									<img src="imagens/img-bc.png">
+									<strong>CAIXA ECONÔMICA </strong>
+									<span>Operação: 013 </span> 
+									<span>Agência: 1649</span> 
+									<span>Poupança: 46136-2 </span>  
+									<span>Manoel Jailton S. do Nascimento</span>  
+								</figure>
+								<figure>
+									<img src="imagens/img-bbd.png">
+									<strong>BANCO BRADESCO </strong>
+									<span>Agência: 1801-5 </span> 
+									<span>Conta: 4189-0 </span> 
+									<span>Jairo S. do Nascimento</span>
+								</figure>
+							</div>
+							<a href="<?php echo URL_BASE ."transferencia" ?>" class="paypal">Finalizar Pedido</a>
+			</div>
+
+			<div id="detalhes">    
+				<strong>COMPRAR PELO PAGSEGURO</strong>
+							<small>Ao clicar no botão abaixo você será redirecionado ao site do pagseguro para realizar o pagamento.</small>
+							<a href="<?php echo URL_BASE."pagseguro.php?idCli=$idCliente&idPed=$idPedido" ?>" class="paypal">Finalizar compra pelo PAGSEGURO</a>
+							<div class="bandeiras"></div>
+			</div>
 		</div>
-</div>
+	</div>
+</div>		
+
 	</div>
 	</div>
 </div>

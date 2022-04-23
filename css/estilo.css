@@ -100,6 +100,7 @@ src: local('Antonio light'), url('font/Antonio-Light.woff') format('woff');
 	display:inline-block;
 	font-family:'Antonio regular';
 	font-size:1.1em;
+	width: 100%;
 }
 .carrinho-topo li a{
 	color: #FFC926;
@@ -1641,7 +1642,6 @@ margin-top:50px;
   border-bottom:solid 1px #ddd;
   padding:20px 10px;
 }
-<<<<<<< HEAD
 
 
 .meus-pedidos span{
@@ -1650,12 +1650,6 @@ margin-top:50px;
   margin: 0 10px;
   
   
-=======
-.meus-pedidos span{
-  height: 30px;
-  width: 30px;  
-  margin: 0 10px;  
->>>>>>> 2eb5a08fcb320b6decdb4cd7e51ca71641861df3
 }
 .pedidos{
   display: flex;
@@ -1665,7 +1659,6 @@ margin-top:50px;
   border: solid 1px #ddd;
   background: #e1e1e1;
   padding-top: 15px;
-<<<<<<< HEAD
   padding-bottom: 15px;
  
  
@@ -1675,10 +1668,6 @@ margin-top:50px;
 }
 
 
-=======
-  padding-bottom: 15px; 
-}
->>>>>>> 2eb5a08fcb320b6decdb4cd7e51ca71641861df3
 .caixa-carrinho img {
   width:20%;
   float:left;

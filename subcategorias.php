@@ -60,13 +60,13 @@
 					    <h3>R$ <?php echo $lst_produto["preco"]?></h3>
 															
 					<div class="cx-botoes">
-						<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
+						<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>/carrinho">
 							<input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $lst_produto["preco"]?>" />
 							<input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
 							<input type="hidden" 		name="id_produto" value = "<?php echo $lst_produto["id_produto"]?>"/>
 							<input type="submit" 		name="imageField" class="bot-comprar" value="Comprar"  />
 						</form>
-						<a href="<?php echo URL_BASE ?>/produto" class="bot-detalhe">Detalhes</a>
+						<a href="<?php echo URL_BASE ."produto/?p=".$lst_produto["id_produto"]?>" class="bot-detalhe">Detalhes</a>
 						<div class="cx-frete"><b class="frete">FRETE</b><b class="val-frete">GRÁTIS</b></div>
 						<div class="bandeiras none"><font>Em até <b>10x</b> nos cartões</font><img src="<?php echo URL_BASE ?>/imagens/bandeiras2.png"></div>
 					</div>

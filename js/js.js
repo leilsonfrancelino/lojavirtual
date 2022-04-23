@@ -1,4 +1,4 @@
-$(function(){
+$(function(){	
 	
 	var slideAuto = setInterval(slideGo, 3000);
 	

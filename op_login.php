@@ -4,7 +4,7 @@
 	require("include/config.php");
 	require("include/crud.php");
 	require("include/biblio.php");
-	$url_sucesso = URL_BASE."meus-dados";
+	$url_sucesso = URL_BASE."index";
 	$url_erro = URL_BASE."nao-logado";
 	
 
