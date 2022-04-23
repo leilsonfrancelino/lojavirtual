@@ -2776,4 +2776,33 @@ margin-top:50px;
     left: 63px;
     top: -10px;
 	color:#111!important;
+<<<<<<< HEAD
 }
+=======
+}
+<<<<<<< HEAD
+
+
+/* CSS do icone de login do navbar*/
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+=======
+>>>>>>> 1abf0f23ba10a5436bd261fd50db98feb76314c3
+>>>>>>> dcb1d5e377d419f5eeb608ddf2980a4a56eb09f5

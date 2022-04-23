@@ -18,9 +18,19 @@
 		$Total = 0;
 	}
 ?>		
+<<<<<<< HEAD
 	
 		
 
+=======
+
+<!-- teste teste timezone_offset_get
+teste teste timezone_offset_get
+teste teste timezone_offset_get
+teste teste timezone_offset_get
+teste teste timezone_offset_get
+	 -->
+>>>>>>> dcb1d5e377d419f5eeb608ddf2980a4a56eb09f5
 <div class="mn-topo">
 	<div class="conteudo">
 		<div class="contato-topo">
@@ -33,7 +43,8 @@
 					
 					<?php echo "<li><a href=$urlLogin>$txtLogin</a></li> "; ?>
 						
-						</ul>
+				</ul>
+				
 				<a href="<?php echo URL_BASE ."cadastro"?>" title="usuario" class="usuario"><img src="<?php echo URL_BASE ?>/imagens/ico-usuario-topo.png"><p><?php echo $nomeCliente ?> </p></a>
 		</div>
 	</div>
@@ -87,7 +98,7 @@
 <div class="cor">
 	<div class="conteudo">
 		<ul>
-				<!-- mostrar mobile -->
+				mostrar mobile
 					<li class="mostra"><a href="<?php echo URL_BASE ?>"><i class="ico-home"></i>Home	</a></li>  
 					<li class="mostra"><a href="<?php echo URL_BASE ?>login"><i class="ico-logar"></i>Login</a></li>  					
 					<li class="mostra"><a href="<?php echo URL_BASE ?>cadastro"><i class="ico-cad"></i>Cadastrar	</a></li>     
@@ -117,4 +128,3 @@
 </div>
 </nav>
 
-		
