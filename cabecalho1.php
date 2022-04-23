@@ -60,6 +60,7 @@
 											<form class="form" role="form" method="post" action="op_login.php" accept-charset="UTF-8" id="login-nav">
 													<div class="form-group">
 														<label class="sr-only" for="exampleInputEmail2">Email</label>
+														<span class="error_login" style="background-color: red; display:block;">Email ou senha inválidos</span>
 														<input type="email" name="tx_email" class="form-control" id="exampleInputEmail2" placeholder="Email" required>
 													</div>
 													<div class="form-group">
@@ -78,8 +79,8 @@
 											</form>
 											
 										</div>
-										<div class="bottom text-center">
-										<a href="<?php echo "cadastro"?>"><b>Cadastre-se Aqui</b></a>
+										<div>
+										<button class="btn btn-primary btn-block" href="<?php echo "cadastro"?>"><b>Cadastre-se Aqui</b></button>
 										</div>
 								</div>
 							</li>
